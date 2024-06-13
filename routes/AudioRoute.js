@@ -7,14 +7,13 @@ import {
   getAudioById,
   upload,
 } from "../controllers/Audio.js";
-import { AdminOnly, verifyUser } from "../middleware/AuthUser.js";
+// import { verifyUser } from "../middleware/AuthUser.js";
 const router = express.Router();
 
 router.get("/audio", getAudio);
 router.post(
   "/audio",
 
-  AdminOnly,
   upload.single("audio_name_input"),
   createAudio
 );
@@ -23,11 +22,10 @@ router.post(
 router.patch(
   "/audio/:id",
 
-  AdminOnly,
   upload.single("audio_name_input"),
   updateAudio
 );
-router.delete("/audio/:id", AdminOnly, deleteAudio);
+router.delete("/audio/:id", deleteAudio);
 router.get("/audio/:id", getAudioById);
 
 export default router;
