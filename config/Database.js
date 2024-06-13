@@ -5,6 +5,7 @@ const db = new Sequelize("sql12713648", "sql12713648", "Xd3tyGDpdt", {
   host: "sql12.freemysqlhosting.net",
   dialect: "mysql",
   dialectModule: mysql2,
+  logging: false,
 });
 
 // Fungsi untuk mengecek koneksi
