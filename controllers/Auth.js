@@ -44,14 +44,14 @@ export const Logout = async (req, res) => {
 };
 
 export const updateUserProfile = async (req, res) => {
-  if (!req.session.userId) {
+  if (!req.params.id) {
     return res.status(401).json({ message: "Mohon Login ke Akun Anda" });
   }
 
   const { username, email, password } = req.body;
 
   try {
-    const user = await User.findOne({ where: { id: req.session.userId } });
+    const user = await User.findOne({ where: { id: req.params.id } });
     if (!user) {
       return res.status(404).json({ message: "User Tidak Ditemukan" });
     }
