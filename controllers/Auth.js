@@ -20,7 +20,9 @@ export const Login = async (req, res) => {
 
 export const Me = async (req, res) => {
   if (!req.params.id) {
-    return res.status(401).json({ message: "Mohon Login ke Akun Anda " });
+    return res
+      .status(401)
+      .json({ message: "Mohon Login ke Akun Anda ", id: req.params.id });
   }
   const user = await User.findOne({
     attributes: ["id", "username", "email", "role"],
