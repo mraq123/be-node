@@ -10,10 +10,10 @@ import {
 import { AdminOnly, verifyUser } from "../middleware/AuthUser.js";
 const router = express.Router();
 
-router.get("/audio", verifyUser, getAudio);
+router.get("/audio", getAudio);
 router.post(
   "/audio",
-  verifyUser,
+
   AdminOnly,
   upload.single("audio_name_input"),
   createAudio
@@ -22,12 +22,12 @@ router.post(
 // router.patch("/audio/:id", updateAudio);
 router.patch(
   "/audio/:id",
-  verifyUser,
+
   AdminOnly,
   upload.single("audio_name_input"),
   updateAudio
 );
-router.delete("/audio/:id", verifyUser, AdminOnly, deleteAudio);
-router.get("/audio/:id", verifyUser, getAudioById);
+router.delete("/audio/:id", AdminOnly, deleteAudio);
+router.get("/audio/:id", getAudioById);
 
 export default router;

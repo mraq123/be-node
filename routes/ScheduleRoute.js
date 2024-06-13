@@ -10,10 +10,10 @@ import { AdminOnly, verifyUser } from "../middleware/AuthUser.js";
 
 const router = express.Router();
 
-router.get("/schedule", verifyUser, getSchedule);
-router.get("/schedule/:id", verifyUser, getScheduleById);
-router.post("/schedule", verifyUser, AdminOnly, createSchedule);
-router.patch("/schedule/:id", verifyUser, AdminOnly, updateSchedule);
-router.delete("/schedule/:id", verifyUser, AdminOnly, deleteSchedule);
+router.get("/schedule", getSchedule);
+router.get("/schedule/:id", getScheduleById);
+router.post("/schedule", AdminOnly, createSchedule);
+router.patch("/schedule/:id", AdminOnly, updateSchedule);
+router.delete("/schedule/:id", AdminOnly, deleteSchedule);
 
 export default router;
