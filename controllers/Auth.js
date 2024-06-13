@@ -19,12 +19,12 @@ export const Login = async (req, res) => {
 };
 
 export const Me = async (req, res) => {
-  if (!req.session.userId) {
+  if (!req.params.id) {
     return res.status(401).json({ message: "Mohon Login ke Akun Anda " });
   }
   const user = await User.findOne({
     attributes: ["id", "username", "email", "role"],
-    where: { id: req.session.userId },
+    where: { id: req.params.id },
   });
   if (!user) {
     return res.status(404).json({ message: "User Tidak Ditemukan" });
