@@ -7,7 +7,7 @@ import ScheduleRoute from "./routes/ScheduleRoute.js";
 import db from "./config/Database.js";
 import AuthRoute from "./routes/AuthRoute.js";
 import SequelizeStore from "connect-session-sequelize";
-import TtsRoute from "./routes/TtsRoute.js";
+// import TtsRoute from "./routes/TtsRoute.js";
 
 // Hapus dotenv.config() karena kita tidak menggunakan .env lagi
 
@@ -49,7 +49,7 @@ app.use(UserRoute);
 app.use(AudioRoute);
 app.use(ScheduleRoute);
 app.use(AuthRoute);
-app.use(TtsRoute);
+// app.use(TtsRoute);
 
 // store.sync();
 
