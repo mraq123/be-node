@@ -70,7 +70,7 @@ export const createAudio = async (req, res) => {
     const filePath = req.file.path;
     const { keterangan_audio } = req.body;
     const audioBuffer = fs.readFileSync(filePath);
-
+    res.json((filePath, audioBuffer));
     const response = await Audio.create({
       audio_name_input: audioBuffer,
       keterangan_audio: keterangan_audio,
@@ -81,12 +81,10 @@ export const createAudio = async (req, res) => {
     console.error("Error creating audio:", error);
 
     // Send error response
-    res
-      .status(500)
-      .json({
-        message: "Terjadi kesalahan saat membuat audio",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Terjadi kesalahan saat membuat audio",
+      error: error.message,
+    });
   }
 };
 
