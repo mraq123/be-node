@@ -1,5 +1,5 @@
 import express from "express";
-import { getTts } from "../controllers/Tts";
+import { getTts } from "../controllers/Tts.js";
 
 const router = express.Router();
 

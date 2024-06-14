@@ -45,11 +45,11 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
+app.use(TtsRoute);
 app.use(UserRoute);
 app.use(AudioRoute);
 app.use(ScheduleRoute);
 app.use(AuthRoute);
-app.use(TtsRoute);
 
 // store.sync();
 
