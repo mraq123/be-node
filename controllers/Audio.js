@@ -47,19 +47,6 @@ export const getAudioById = async (req, res) => {
   }
 };
 
-// function fileToBlob(filePath) {
-//   return new Promise((resolve, reject) => {
-//     fs.readFile(filePath, (err, data) => {
-//       if (err) {
-//         return reject(err);
-//       }
-//       // Create a Blob from the file data
-//       const blob = new Blob([data]);
-//       resolve(blob);
-//     });
-//   });
-// }
-
 const fileToBlob = async (filePath) => {
   const data = await fs.readFile(filePath);
   return new Blob([data]);
@@ -88,39 +75,6 @@ export const createAudio = async (req, res) => {
   }
 };
 
-// export const updateAudio = async (req, res) => {
-//   const audio = await Audio.findOne({ where: { id: req.params.id } });
-//   if (!audio) {
-//     return res.status(404).json({ message: "Audio Tidak Ditemukan" });
-//   }
-
-//   // Mengambil data dari request body. Jika ada file baru, gunakan nama file baru, jika tidak, gunakan nama file lama.
-//   const { keterangan_audio } = req.body;
-//   const audio_name_input = req.file
-//     ? req.file.filename
-//     : audio.audio_name_input;
-
-//   try {
-//     const response = await Audio.update(
-//       {
-//         audio_name_input: audio_name_input,
-//         keterangan_audio: keterangan_audio,
-//       },
-//       { where: { id: audio.id } }
-//     );
-//     if (response[0] === 0) {
-//       // Memeriksa apakah ada baris yang terupdate
-//       return res
-//         .status(404)
-//         .json({ message: "Tidak ada perubahan pada data audio" });
-//     }
-//     res
-//       .status(200)
-//       .json({ message: "Audio Berhasil Di Update", data: response });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
 export const updateAudio = async (req, res) => {
   try {
     const audio = await Audio.findOne({ where: { id: req.params.id } });
