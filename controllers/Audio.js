@@ -1,5 +1,4 @@
 import Audio from "../models/AudioModel.js";
-import multer from "multer";
 import fs from "fs";
 import { Blob } from "buffer";
 import { authPlugins } from "mysql2";
@@ -107,7 +106,7 @@ export const updateAudio = async (req, res) => {
     if (req.file) {
       const filePath = req.file.path;
       audioBuffer = fs.readFileSync(filePath);
-      fs.unlinkSync(filePath);
+      // fs.unlinkSync(filePath);
     }
 
     const { keterangan_audio } = req.body;
