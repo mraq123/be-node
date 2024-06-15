@@ -4,19 +4,19 @@ import fs from "fs";
 import { Blob } from "buffer";
 import { authPlugins } from "mysql2";
 
-// upload file
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/"); // Folder penyimpanan file
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix + file.originalname);
-  },
-});
+// // upload file
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "uploads/"); // Folder penyimpanan file
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//     cb(null, file.fieldname + "-" + uniqueSuffix + file.originalname);
+//   },
+// });
 
-export const upload = multer({ storage: storage });
-// endd
+// export const upload = multer({ storage: storage });
+// // endd
 
 export const getAudio = async (req, res) => {
   try {
@@ -47,12 +47,19 @@ export const getAudioById = async (req, res) => {
   }
 };
 
-const fileToBlob = async (filePath) => {
-  const data = await fs.readFile(filePath);
-  return new Blob([data]);
-};
+// const fileToBlob = async (filePath) => {
+//   const data = await fs.readFile(filePath);
+//   return new Blob([data]);
+// };
 export const createAudio = async (req, res) => {
   const form = new IncomingForm();
+
+  if (req.file) {
+    const filePath = req.file.path;
+    audioBuffer = fs.readFileSync(filePath);
+    console.log(filePath, "filepathh<<<<");
+    console.log(audioBuffer, "audio buffer<<<<");
+  }
 
   form.parse(req, async (err, fields, files) => {
     if (err) {

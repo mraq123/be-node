@@ -11,8 +11,8 @@ import {
 const router = express.Router();
 
 router.get("/audio", getAudio);
-router.post("/audio", upload.single("audio_name_input"), createAudio);
-router.patch("/audio/:id", upload.single("audio_name_input"), updateAudio);
+router.post("/audio", createAudio);
+router.patch("/audio/:id", updateAudio);
 router.delete("/audio/:id", deleteAudio);
 router.get("/audio/:id", getAudioById);
 
