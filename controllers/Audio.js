@@ -106,17 +106,23 @@ export const updateAudio = async (req, res) => {
         return res.status(404).json({ message: "Audio Tidak Ditemukan" });
       }
 
-      // Baca file audio menjadi buffer
-      const audioBuffer = fs.readFileSync(uploadedFile.path);
+      let body = {};
 
-      // Simpan data ke dalam database
-      const response = await Audio.update(
-        {
+      if (uploadedFile.path) {
+        // Baca file audio menjadi buffer
+        const audioBuffer = fs.readFileSync(uploadedFile.path);
+        body = {
           audio_name_input: audioBuffer, // Simpan buffer audio ke kolom audio_name_input
           keterangan_audio: fields.keterangan_audio,
-        },
-        { where: { id: audio.id } }
-      );
+        };
+      } else {
+        body = {
+          keterangan_audio: fields.keterangan_audio,
+        };
+      }
+
+      // Simpan data ke dalam database
+      const response = await Audio.update(body, { where: { id: audio.id } });
 
       if (response[0] === 0) {
         return res
