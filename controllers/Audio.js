@@ -1,7 +1,8 @@
 import Audio from "../models/AudioModel.js";
 import fs from "fs";
-import { Blob } from "buffer";
-import { authPlugins } from "mysql2";
+import { IncomingForm } from "formidable-serverless";
+// import { Blob } from "buffer";
+// import { authPlugins } from "mysql2";
 
 // // upload file
 // const storage = multer.diskStorage({
@@ -58,6 +59,8 @@ export const createAudio = async (req, res) => {
     audioBuffer = fs.readFileSync(filePath);
     console.log(filePath, "filepathh<<<<");
     console.log(audioBuffer, "audio buffer<<<<");
+  } else {
+    console.log("gada bro");
   }
 
   form.parse(req, async (err, fields, files) => {
