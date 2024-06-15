@@ -55,15 +55,6 @@ export const getAudioById = async (req, res) => {
 export const createAudio = async (req, res) => {
   const form = new IncomingForm();
 
-  if (req.file) {
-    const filePath = req.file.path;
-    audioBuffer = fs.readFileSync(filePath);
-    console.log(filePath, "filepathh<<<<");
-    console.log(audioBuffer, "audio buffer<<<<");
-  } else {
-    console.log("gada bro");
-  }
-
   form.parse(req, async (err, fields, files) => {
     if (err) {
       console.error("Error parsing form data:", err);
@@ -72,7 +63,6 @@ export const createAudio = async (req, res) => {
 
     // File audio yang diunggah tersedia di files.audio
     const uploadedFile = files.audio_name_input;
-    console.log("File uploaded:", uploadedFile);
 
     try {
       // Baca file audio menjadi buffer
@@ -100,41 +90,47 @@ export const createAudio = async (req, res) => {
 };
 
 export const updateAudio = async (req, res) => {
-  try {
-    const audio = await Audio.findOne({ where: { id: req.params.id } });
-    if (!audio) {
-      return res.status(404).json({ message: "Audio Tidak Ditemukan" });
+  const form = new IncomingForm();
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      console.error("Error parsing form data:", err);
+      return res.status(500).json({ error: "Internal server error" });
     }
 
-    let audioBuffer = audio.audio_name_input;
-    if (req.file) {
-      const filePath = req.file.path;
-      audioBuffer = fs.readFileSync(filePath);
-      // fs.unlinkSync(filePath);
+    // File audio yang diunggah tersedia di files.audio
+    const uploadedFile = files.audio_name_input;
+
+    try {
+      const audio = await Audio.findOne({ where: { id: req.params.id } });
+      if (!audio) {
+        return res.status(404).json({ message: "Audio Tidak Ditemukan" });
+      }
+
+      // Baca file audio menjadi buffer
+      const audioBuffer = fs.readFileSync(uploadedFile.path);
+
+      // Simpan data ke dalam database
+      const response = await Audio.update(
+        {
+          audio_name_input: audioBuffer, // Simpan buffer audio ke kolom audio_name_input
+          keterangan_audio: fields.keterangan_audio,
+        },
+        { where: { id: audio.id } }
+      );
+
+      if (response[0] === 0) {
+        return res
+          .status(404)
+          .json({ message: "Tidak ada perubahan pada data audio" });
+      }
+
+      res
+        .status(200)
+        .json({ message: "Audio Berhasil Diperbarui", data: response });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
-
-    const { keterangan_audio } = req.body;
-
-    const response = await Audio.update(
-      {
-        audio_name_input: audioBuffer,
-        keterangan_audio: keterangan_audio,
-      },
-      { where: { id: audio.id } }
-    );
-
-    if (response[0] === 0) {
-      return res
-        .status(404)
-        .json({ message: "Tidak ada perubahan pada data audio" });
-    }
-
-    res
-      .status(200)
-      .json({ message: "Audio Berhasil Diperbarui", data: response });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  });
 };
 
 export const deleteAudio = async (req, res) => {
