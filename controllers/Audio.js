@@ -55,6 +55,7 @@ const fileToBlob = async (filePath) => {
 export const createAudio = async (req, res) => {
   try {
     const filePath = req.file.path;
+    res.status(200).json({ message: filePath, data: "oke" });
     const { keterangan_audio } = req.body;
     const audioBuffer = fs.readFileSync(filePath);
     res.json((filePath, audioBuffer));
@@ -63,7 +64,6 @@ export const createAudio = async (req, res) => {
       keterangan_audio: keterangan_audio,
     });
     fs.unlinkSync(filePath);
-    res.status(200).json({ message: "Audio Berhasil Dibuat", data: "oke" });
   } catch (error) {
     console.error("Error creating audio:", error);
 
