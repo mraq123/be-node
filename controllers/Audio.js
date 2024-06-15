@@ -1,6 +1,7 @@
 import Audio from "../models/AudioModel.js";
 import fs from "fs";
-import { IncomingForm } from "formidable-serverless";
+import pkg from "formidable-serverless";
+const { IncomingForm } = pkg;
 // import { Blob } from "buffer";
 // import { authPlugins } from "mysql2";
 
