@@ -97,9 +97,6 @@ export const updateAudio = async (req, res) => {
       return res.status(500).json({ error: "Internal server error" });
     }
 
-    // File audio yang diunggah tersedia di files.audio
-    const uploadedFile = files.audio_name_input;
-
     try {
       const audio = await Audio.findOne({ where: { id: req.params.id } });
       if (!audio) {
@@ -108,7 +105,9 @@ export const updateAudio = async (req, res) => {
 
       let body = {};
 
-      if (uploadedFile.path) {
+      if (files.audio_name_input) {
+        // File audio yang diunggah tersedia di files.audio
+        const uploadedFile = files.audio_name_input;
         // Baca file audio menjadi buffer
         const audioBuffer = fs.readFileSync(uploadedFile.path);
         body = {
