@@ -51,28 +51,45 @@ const fileToBlob = async (filePath) => {
   const data = await fs.readFile(filePath);
   return new Blob([data]);
 };
-
 export const createAudio = async (req, res) => {
-  try {
-    const filePath = req.file.path;
-    res.status(200).json({ message: filePath, data: "oke" });
-    const { keterangan_audio } = req.body;
-    const audioBuffer = fs.readFileSync(filePath);
-    res.json((filePath, audioBuffer));
-    const response = await Audio.create({
-      audio_name_input: audioBuffer,
-      keterangan_audio: keterangan_audio,
-    });
-    fs.unlinkSync(filePath);
-  } catch (error) {
-    console.error("Error creating audio:", error);
+  const form = new IncomingForm();
 
-    // Send error response
-    res.status(500).json({
-      message: "Terjadi kesalahan saat membuat audio",
-      error: error.message,
-    });
-  }
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      console.error("Error parsing form data:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    // File audio yang diunggah tersedia di files.audio
+    const uploadedFile = files.audio;
+    console.log("File uploaded:", uploadedFile);
+
+    try {
+      // Baca file audio menjadi buffer
+      const audioBuffer = fs.readFileSync(uploadedFile.path);
+
+      // Simpan data ke dalam database
+      const response = await Audio.create({
+        audio_name_input: audioBuffer, // Simpan buffer audio ke kolom audio_name_input
+        keterangan_audio: fields.keterangan_audio, // Ambil keterangan_audio dari fields
+      });
+
+      // Hapus file yang diunggah setelah selesai
+      fs.unlinkSync(uploadedFile.path);
+
+      // Kirim respons berhasil
+      res.status(200).json({
+        message: "File audio berhasil diunggah dan disimpan",
+        data: response, // Jika perlu, kirim data respons dari database
+      });
+    } catch (error) {
+      console.error("Error creating audio:", error);
+      res.status(500).json({
+        message: "Terjadi kesalahan saat membuat audio",
+        error: error.message,
+      });
+    }
+  });
 };
 
 export const updateAudio = async (req, res) => {
