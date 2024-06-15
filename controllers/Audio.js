@@ -74,9 +74,6 @@ export const createAudio = async (req, res) => {
         keterangan_audio: fields.keterangan_audio, // Ambil keterangan_audio dari fields
       });
 
-      // Hapus file yang diunggah setelah selesai
-      fs.unlinkSync(uploadedFile.path);
-
       // Kirim respons berhasil
       res.status(200).json({
         message: "File audio berhasil diunggah dan disimpan",
