@@ -70,8 +70,6 @@ export const createAudio = async (req, res) => {
       return res.status(500).json({ error: "Internal server error" });
     }
 
-    console.log(files, "files");
-
     // File audio yang diunggah tersedia di files.audio
     const uploadedFile = files.audio_name_input;
     console.log("File uploaded:", uploadedFile);
