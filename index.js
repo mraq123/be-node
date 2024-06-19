@@ -36,7 +36,7 @@ app.use(
 );
 
 const corsOptions = {
-  origin: "https://fe-m0qf2prdr-mraq123s-projects.vercel.app",
+  origin: "https://fe-fix.vercel.app",
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   credentials: true,
 };
