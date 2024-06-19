@@ -41,6 +41,11 @@ const Schedule = db.define(
         key: "id",
       },
     },
+
+    id_users: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     freezeTableName: true,
@@ -48,6 +53,7 @@ const Schedule = db.define(
 );
 
 Audio.hasMany(Schedule);
+
 Schedule.belongsTo(Audio, { foreignKey: "audioId" });
 
 export default Schedule;

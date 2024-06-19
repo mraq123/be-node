@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize";
 import mysql2 from "mysql2";
 
-const db = new Sequelize("sql12713648", "sql12713648", "Xd3tyGDpdt", {
-  host: "sql12.freemysqlhosting.net",
+const db = new Sequelize("smart_audio_db", "root", "", {
+  host: "localhost",
   dialect: "mysql",
   dialectModule: mysql2,
   logging: false,

@@ -42,7 +42,7 @@ export const getScheduleById = async (req, res) => {
 
 export const createSchedule = async (req, res) => {
   try {
-    const { jam, keterangan_schedule, audioId } = req.body;
+    const { jam, keterangan_schedule, audioId, id_users } = req.body;
 
     // Catat data permintaan yang masuk
     console.log("Data Permintaan:", { jam, keterangan_schedule, audioId });
@@ -57,6 +57,7 @@ export const createSchedule = async (req, res) => {
       jam,
       keterangan_schedule,
       audioId,
+      id_users,
     });
     res.status(201).json(schedule);
   } catch (error) {

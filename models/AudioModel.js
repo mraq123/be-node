@@ -1,5 +1,6 @@
 import { Sequelize, DataTypes } from "sequelize";
 import db from "../config/Database.js";
+import Users from "./UserModel.js";
 
 // const { DataTypes } = Sequelize;
 
@@ -31,9 +32,14 @@ const Audio = db.define(
         notEmpty: true,
       },
     },
+    id_users: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     freezeTableName: true,
   }
 );
+
 export default Audio;
