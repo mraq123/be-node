@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize";
 import mysql2 from "mysql2";
 
-const db = new Sequelize("sql12713648", "sql12713648", "Xd3tyGDpdt", {
-  host: "sql12.freemysqlhosting.net",
+const db = new Sequelize("b1sdysgf7rivanz35bdl", "ui0crxc7ow8jz97f", "f1XGtNEUlMY3fyCd632t", {
+  host: "b1sdysgf7rivanz35bdl-mysql.services.clever-cloud.com",
   dialect: "mysql",
   dialectModule: mysql2,
   logging: false,
