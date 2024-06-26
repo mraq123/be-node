@@ -75,6 +75,9 @@ export const updateUser = async (req, res) => {
         .status(400)
         .json({ message: "Password dan Confirm Password Tidak Sama " });
     }
+    if (password.length < 8) {
+      return res.status(400).json({ message: "Password minimal 8 karakter" });
+    }
     hashedPassword = await argon2.hash(password);
   }
 
