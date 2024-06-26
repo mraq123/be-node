@@ -27,7 +27,16 @@ export const createUser = async (req, res) => {
       .json({ message: "Password and Confirm Password Tidak Sama " });
   }
 
+   if (password.length < 8) {
+    return res.status(400).json({ message: "Password minimal 8 karakter" });
+  }
+
   try {
+     // Check if email already exists
+    const existingUser = await User.findOne({ where: { email: email } });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email sudah terdaftar" });
+    }
     const hashedPassword = await argon2.hash(password);
     const response = await User.create({
       name,
@@ -52,6 +61,14 @@ export const updateUser = async (req, res) => {
   const { name, email, password, username, role, confirmPassword } = req.body;
   let hashedPassword = user.password;
 
+     // Check if email is being changed and if it already exists
+  if (email && email !== user.email) {
+    const existingUser = await User.findOne({ where: { email: email } });
+    if (existingUser && existingUser.id !== user.id) {
+      return res.status(400).json({ message: "Email sudah terdaftar" });
+    }
+  }
+  
   if (password && password !== "") {
     if (password !== confirmPassword) {
       return res
