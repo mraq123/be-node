@@ -56,6 +56,20 @@ export const updateUserProfile = async (req, res) => {
       return res.status(404).json({ message: "User Tidak Ditemukan" });
     }
 
+      // Check if email is being changed and if it already exists
+    if (email && email !== user.email) {
+      const existingUser = await User.findOne({ where: { email: email } });
+      if (existingUser && existingUser.id !== user.id) {
+        return res.status(400).json({ message: "Email sudah terdaftar" });
+      }
+    }
+
+    // Validate password length
+    if (password && password.length < 8) {
+      return res.status(400).json({ message: "Password minimal 8 karakter" });
+    }
+
+
     user.username = username || user.username;
     user.email = email || user.email;
 
