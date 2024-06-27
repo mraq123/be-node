@@ -117,6 +117,18 @@ export const updateAudio = async (req, res) => {
       if (files.audio_name_input) {
         // File audio yang diunggah tersedia di files.audio
         const uploadedFile = files.audio_name_input;
+        
+          if (uploadedFile.size > maxFileSize) {
+          return res.status(400).json({
+            error: "Ukuran file maksimal 2MB",
+          });
+        }
+
+        if (uploadedFile.type !== "audio/mp3" && uploadedFile.type !== "audio/mpeg") {
+          return res.status(400).json({
+            error: "Hanya file dengan format MP3 yang diperbolehkan!",
+          });
+        }
         // Baca file audio menjadi buffer
         const audioBuffer = fs.readFileSync(uploadedFile.path);
         body = {
