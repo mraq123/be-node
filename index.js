@@ -36,7 +36,7 @@ app.use(
 );
 
 const corsOptions = {
-  origin: "https://fe-fix.vercel.app",
+  origin: "https://samiapp.vercel.app",
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   credentials: true,
 };
