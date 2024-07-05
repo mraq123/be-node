@@ -134,10 +134,12 @@ export const updateAudio = async (req, res) => {
         body = {
           audio_name_input: audioBuffer, // Simpan buffer audio ke kolom audio_name_input
           keterangan_audio: fields.keterangan_audio,
+           id_users: fields.id_users,
         };
       } else {
         body = {
           keterangan_audio: fields.keterangan_audio,
+           id_users: fields.id_users,
         };
       }
 
