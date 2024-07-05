@@ -68,13 +68,14 @@ export const createSchedule = async (req, res) => {
 
 export const updateSchedule = async (req, res) => {
   try {
-    const { jam, keterangan_schedule, audioId } = req.body;
+    const { jam, keterangan_schedule, audioId, id_users } = req.body;
     const scheduleId = req.params.id;
 
     console.log("Data Permintaan Update:", {
       jam,
       keterangan_schedule,
       audioId,
+      id_users
     });
 
     const audio = await Audio.findByPk(audioId);
@@ -83,7 +84,7 @@ export const updateSchedule = async (req, res) => {
     }
 
     const updatedSchedule = await Schedule.update(
-      { jam, keterangan_schedule, audioId },
+      { jam, keterangan_schedule, audioId, id_users },
       { where: { id: scheduleId } }
     );
 
