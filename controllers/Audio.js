@@ -117,6 +117,9 @@ export const updateAudio = async (req, res) => {
       if (files.audio_name_input) {
         // File audio yang diunggah tersedia di files.audio
         const uploadedFile = files.audio_name_input;
+    // Check if the file size is more than 2MB (2 * 1024 * 1024 bytes)
+    const maxFileSize = 2 * 1024 * 1024;
+
         
           if (uploadedFile.size > maxFileSize) {
           return res.status(400).json({
