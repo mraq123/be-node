@@ -39,6 +39,7 @@ export const Logout = async (req, res) => {
     if (err) {
       return res.status(400).json({ message: " Gagal Logout" });
     }
+    res.clearCookie("connect.sid"); // Nama cookie default untuk express-session
     return res.status(200).json({ message: " Berhasil Logout" });
   });
 };
