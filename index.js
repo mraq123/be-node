@@ -26,7 +26,7 @@ app.use(
   session({
     secret: SESS_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: store,
     // HTTP / HTTPS
     cookie: {
