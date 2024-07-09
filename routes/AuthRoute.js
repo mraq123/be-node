@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/me/:id", Me);
 router.post("/login", Login);
-// router.delete("/logout/:id", Logout);
+router.post("/logout", Logout);
 router.patch("/updateprofile/:id", updateUserProfile);
 
 export default router;
