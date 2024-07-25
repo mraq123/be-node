@@ -4,7 +4,7 @@ import argon2 from "argon2";
 export const Login = async (req, res) => {
   const user = await User.findOne({ where: { email: req.body.email } });
   if (!user) {
-    return res.status(404).json({ message: "Email Salah" });
+    return res.status(404).json({ message: "User Tidak Ditemukan" });
   }
   const matchPassword = await argon2.verify(user.password, req.body.password);
   if (!matchPassword) {
